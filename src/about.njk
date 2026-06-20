@@ -45,18 +45,17 @@ pageDescription: "Hōzō was built in a single three-hour morning session using 
   </p>
 
   <p class="text-slate-300 leading-relaxed mb-4">
-    The verification discipline was the other half of the work. Every commit
-    ran ruff, mypy, and pytest before it landed. Coverage stayed above 99%
-    because failing to write a test for a new code path meant the commit was
-    blocked. The gate was structural, not aspirational.
+    All code changes were subject to ruff, mypy, and pytest before being
+    committed. Coverage stayed above 99% because failing to write a test for
+    a new code path meant the commit was blocked. Nothing past the gate
+    without a passing test.
   </p>
 
   <p class="text-slate-300 leading-relaxed mb-4">
-    What looks like a three-hour session was really the visible tip of a much
-    longer process. The session was the implementation. The system design,
-    the architectural decisions, the verification standards — those came first
-    and took longer. The three hours were fast because everything upstream of
-    them had been done carefully.
+    The session was the implementation. The system design, the architectural
+    decisions, the verification standards — those came first and took longer.
+    The development was fast because the upstream practice was rigorous and
+    intentional.
   </p>
 
   {# ── Section: Why this was possible ──────────────────────────────────── #}
@@ -69,15 +68,14 @@ pageDescription: "Hōzō was built in a single three-hour morning session using 
     tutorial practice — project practice. Real systems with real specs,
     real tests, real deployments. The months before that were architecture
     and systems thinking accumulated over years of design work at a different
-    scale. The session drew on all of it.
+    scale.
   </p>
 
   <p class="text-slate-300 leading-relaxed mb-4">
     The working principle underneath the session was simple:
     <em class="italic text-slate-100">"Anything I can specify, I can build."</em>
     The limit on what gets built is the practitioner's ability to specify it
-    clearly — not their ability to type Python. That shifts everything. The
-    practice becomes: get better at specification.
+    clearly — not their ability to type Python.
   </p>
 
   {# ── Section: The Ho System ───────────────────────────────────────────── #}
@@ -94,9 +92,8 @@ pageDescription: "Hōzō was built in a single three-hour morning session using 
   </p>
 
   <p class="text-slate-300 leading-relaxed mb-4">
-    The key structural ideas: sessions are bounded by scope documents (called
-    "hos") so the agent and practitioner share the same model of what the
-    session will do. Verification is non-negotiable — lint, types, tests, in
+    Sessions are bounded by scope documents (called "hos") so the agent and
+    practitioner share the same model of what the session will do. Verification is non-negotiable — lint, types, tests, in
     that order, before every commit. The repository itself encodes the
     quality practices, so the agent conforms to the standard it finds in the
     environment rather than to whatever its defaults would otherwise produce.
@@ -114,7 +111,7 @@ pageDescription: "Hōzō was built in a single three-hour morning session using 
   </h2>
 
   <p class="text-slate-300 leading-relaxed mb-4">
-    The DORA research put it plainly: elite teams deploy frequently
+    DORA's research showed: elite teams deploy frequently
     <em class="italic">and</em> have low change failure rates. Speed and
     stability are not a tradeoff; they are the same discipline at different
     time scales. The verification stack that kept Hōzō at 99% coverage in

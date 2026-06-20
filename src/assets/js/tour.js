@@ -47,26 +47,31 @@
 
   function positionFor(target) {
     const r = target.getBoundingClientRect();
-    const pad = 6;
-    spotlight.style.top    = `${r.top - pad + window.scrollY}px`;
-    spotlight.style.left   = `${r.left - pad + window.scrollX}px`;
+    const pad = 4;
+
+    // Spotlight is a child of the position:fixed overlay → viewport-relative.
+    // Do NOT add scrollY/scrollX here.
+    spotlight.style.top    = `${r.top - pad}px`;
+    spotlight.style.left   = `${r.left - pad}px`;
     spotlight.style.width  = `${r.width + pad * 2}px`;
     spotlight.style.height = `${r.height + pad * 2}px`;
 
+    // Popover is attached to <body> → document-relative. Add scrollY/scrollX.
     const popW = 320;
     const popH = popover.offsetHeight || 180;
-    let top = r.bottom + 14 + window.scrollY;
+    const gap = 24;
+    let top = r.bottom + gap + window.scrollY;
     let left = r.left + window.scrollX;
     if (left + popW > window.scrollX + window.innerWidth - 16) {
       left = window.scrollX + window.innerWidth - popW - 16;
     }
     if (left < window.scrollX + 16) left = window.scrollX + 16;
     if (top + popH > window.scrollY + window.innerHeight - 16) {
-      // Place above target.
-      top = r.top - popH - 14 + window.scrollY;
+      top = r.top - popH - gap + window.scrollY;
     }
     popover.style.top = `${Math.max(top, window.scrollY + 16)}px`;
     popover.style.left = `${left}px`;
+    requestAnimationFrame(() => popover.classList.add("visible"));
   }
 
   function renderStep() {
@@ -78,11 +83,8 @@
       idx++;
       return renderStep();
     }
-    if (target.scrollIntoView) {
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    setTimeout(() => positionFor(target), 220);
 
+    // Fill the popover for THIS step (must happen before the visibility flip).
     popover.innerHTML = `
       <h3>${escapeHTML(step.title || "")}</h3>
       <p>${step.body || ""}</p>
@@ -112,6 +114,44 @@
       if (idx >= currentSteps.length) return endTour();
       renderStep();
     };
+
+    // Fade out while we (maybe) scroll; reposition once scroll settles.
+    popover.classList.remove("visible");
+
+    const margin = 80;
+    const r0 = target.getBoundingClientRect();
+    const popH = 220;
+    const inView = r0.top >= margin && r0.bottom + 24 + popH <= window.innerHeight - margin;
+
+    if (inView) {
+      requestAnimationFrame(() => positionFor(target));
+    } else {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      waitForScrollEnd(() => positionFor(target));
+    }
+  }
+
+  // Resolve when the window stops scrolling, or after a hard cap.
+  function waitForScrollEnd(cb) {
+    let lastY = window.scrollY;
+    let stable = 0;
+    const hardCap = setTimeout(() => {
+      clearInterval(interval);
+      cb();
+    }, 900);
+    const interval = setInterval(() => {
+      if (window.scrollY === lastY) {
+        stable += 1;
+        if (stable >= 3) {
+          clearInterval(interval);
+          clearTimeout(hardCap);
+          cb();
+        }
+      } else {
+        lastY = window.scrollY;
+        stable = 0;
+      }
+    }, 60);
   }
 
   function endTour() {

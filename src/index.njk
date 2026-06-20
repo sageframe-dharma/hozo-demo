@@ -38,7 +38,7 @@ pageDescription: "Hōzō — wake-on-demand ZFS backup orchestrator. Try the liv
     <h3 class="text-lg font-bold text-slate-100 mb-2">Wake. Sync. Sleep.</h3>
     <p class="text-slate-300 text-sm leading-relaxed">
       Wake-on-LAN, wait for SSH, optionally spin up a USB drive, run syncoid,
-      verify, then shut the box down. Fully automated, zero manual steps.
+      verify, then shut the box down.
     </p>
   </div>
   <div class="card p-5">
@@ -46,7 +46,6 @@ pageDescription: "Hōzō — wake-on-demand ZFS backup orchestrator. Try the liv
     <h3 class="text-lg font-bold text-slate-100 mb-2">Tested in production.</h3>
     <p class="text-slate-300 text-sm leading-relaxed">
       278 tests, 99% coverage, zero lint errors — not a prototype.
-      Built to the same quality bar as any production system.
     </p>
   </div>
   <div class="card p-5">
@@ -93,10 +92,16 @@ pageDescription: "Hōzō — wake-on-demand ZFS backup orchestrator. Try the liv
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
       <h3 class="text-lg font-bold text-slate-100 mb-3">Run it yourself</h3>
-      <pre class="bg-slate-900 rounded-lg px-4 py-3 text-sm text-slate-300 overflow-x-auto">pipx install hozo</pre>
+      <pre class="bg-slate-900 rounded-lg px-4 py-3 text-xs text-slate-300 overflow-x-auto leading-5">git clone https://github.com/sageframe-no-kaji/hozo-sentinel
+cd hozo-sentinel
+python -m venv venv &amp;&amp; source venv/bin/activate
+pip install -e .</pre>
       <p class="text-slate-400 text-sm mt-3">
-        Requires Python 3.11+. ZFS and syncoid must be available on the controller
-        and backup target.
+        Python 3.10+. <code class="text-slate-300">syncoid</code> must also be on
+        <code class="text-slate-300">PATH</code> — it ships with
+        <a href="https://github.com/jimsalterjrs/sanoid" target="_blank" rel="noopener" class="underline text-slate-300">sanoid</a>
+        (<code class="text-slate-300">apt install sanoid</code>). A Docker image is also
+        included in the repo.
       </p>
     </div>
     <div class="flex flex-col gap-3">

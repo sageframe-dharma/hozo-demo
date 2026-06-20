@@ -39,30 +39,50 @@ details.job-menu > summary { list-style: none; }
 
 .tour-overlay.active {
   pointer-events: auto;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(1px);
+  background: rgba(15, 23, 42, 0.25);
+  transition: background 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tour-spotlight {
   position: absolute;
   border-radius: 0.5rem;
   box-shadow:
-    0 0 0 4px rgba(59, 130, 246, 0.6),
-    0 0 0 9999px rgba(15, 23, 42, 0.55);
+    0 0 0 2px rgba(251, 146, 60, 0.9),
+    0 0 18px 2px rgba(251, 146, 60, 0.25),
+    0 0 0 9999px rgba(15, 23, 42, 0.28);
   pointer-events: none;
-  transition: all 0.25s ease;
+  transition:
+    top 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease;
 }
 
 .tour-popover {
   position: absolute;
   background: #1e293b;
-  border: 1px solid #3b82f6;
+  border: 1px solid rgba(251, 146, 60, 0.85);
   border-radius: 0.5rem;
   padding: 1rem;
   max-width: 320px;
   z-index: 10000;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(251, 146, 60, 0.18),
+    0 12px 30px rgba(0, 0, 0, 0.55);
   font-family: ui-sans-serif, system-ui, sans-serif;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    top 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease-out,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tour-popover.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .tour-popover h3 {
