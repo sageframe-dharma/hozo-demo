@@ -1,0 +1,93 @@
+---
+layout: base.njk
+permalink: /demo/restore/log/
+pageTitle: "Restore Log — nightly-rpool"
+tourSteps:
+  - selector: "#log-box"
+    title: "Restore complete"
+    body: "That's the full tour. The CLI mirrors everything you just saw — sometimes you want a button, sometimes you want a script."
+    next: "/cli/"
+---
+
+{# ── Page header ──────────────────────────────────────────────────────────── #}
+<div class="flex items-center gap-4 mb-4 flex-wrap">
+  <a href="/demo/restore/" class="text-slate-400 text-sm hover:text-slate-200">&#8592; Back</a>
+  <h1 class="text-xl font-bold">{{ jobs[0].name }}</h1>
+  <span class="badge-err text-xs px-2 py-1 rounded font-semibold">&#9888; RESTORE</span>
+  <span id="status-badge" class="text-xs px-2 py-1 rounded badge-nil">Running&#8230;</span>
+</div>
+
+{# ── In-progress / success banner ─────────────────────────────────────────── #}
+<div id="progress-banner" class="badge-err text-xs rounded px-3 py-2 mb-4">
+  &#9203; Restore in progress — do not navigate away.
+</div>
+<div id="success-banner" class="badge-ok text-xs rounded px-3 py-2 mb-4 hidden">
+  &#10003; Restore completed successfully. Verify your data before relying on it.
+</div>
+
+{# ── Log panel ────────────────────────────────────────────────────────────── #}
+<div id="log-box"
+     class="card p-4 font-mono text-xs leading-5 overflow-x-auto min-h-32 border border-red-900">
+</div>
+
+{# ── Footer (hidden until done) ───────────────────────────────────────────── #}
+<div id="log-footer" class="mt-4 text-xs text-slate-500 hidden"></div>
+
+<script>
+(function () {
+  var LOG_LINES = [
+    { text: "[hozo] BREAK-GLASS RESTORE initiated — pulling backup/rpool-data → rpool/data", cls: "text-slate-400" },
+    { text: "[hozo] Sending WoL to backup-box.tailnet.ts.net", cls: "text-slate-400" },
+    { text: "[hozo] SSH up after 2.8s", cls: "text-slate-400" },
+    { text: "[syncoid] Receiving rpool/data ← backup/rpool-data@hozo_latest", cls: "text-cyan-300" },
+    { text: "[syncoid]   force-delete: snapshots not on source will be removed locally", cls: "text-cyan-300" },
+    { text: "[syncoid] 14% complete · 380 MiB/s", cls: "text-cyan-300" },
+    { text: "[syncoid] 52% complete · 391 MiB/s", cls: "text-cyan-300" },
+    { text: "[syncoid] 88% complete · 402 MiB/s", cls: "text-cyan-300" },
+    { text: "[syncoid] Transfer complete · 6.74 GiB in 17.4s", cls: "text-cyan-300" },
+    { text: "[hozo] Verifying local snapshots match remote", cls: "text-slate-400" },
+    { text: "[hozo] OK — 47 snapshots present on rpool/data", cls: "text-slate-400" },
+    { text: "[hozo] Restore completed in 18.2s", cls: "text-slate-400" }
+  ];
+
+  var logBox     = document.getElementById('log-box');
+  var progBanner = document.getElementById('progress-banner');
+  var succBanner = document.getElementById('success-banner');
+  var statusBadge = document.getElementById('status-badge');
+  var logFooter  = document.getElementById('log-footer');
+
+  var startedAt  = new Date();
+  var totalMs    = 8000;
+  var count      = LOG_LINES.length;
+
+  LOG_LINES.forEach(function (line, i) {
+    var delay = Math.round((i / (count - 1)) * totalMs);
+    setTimeout(function () {
+      var el = document.createElement('div');
+      el.className = line.cls;
+      el.textContent = line.text;
+      logBox.appendChild(el);
+      logBox.scrollTop = logBox.scrollHeight;
+
+      if (i === count - 1) {
+        // Flip banners
+        progBanner.classList.add('hidden');
+        succBanner.classList.remove('hidden');
+
+        // Flip status badge
+        statusBadge.className = 'text-xs px-2 py-1 rounded badge-ok';
+        statusBadge.textContent = '✓ Done';
+
+        // Show footer
+        var finishedAt = new Date();
+        var durationS  = ((finishedAt - startedAt) / 1000).toFixed(1);
+        logFooter.classList.remove('hidden');
+        logFooter.textContent =
+          'Started ' + startedAt.toISOString().replace('T', ' ').slice(0, 19) + ' UTC' +
+          ' · Finished ' + finishedAt.toISOString().replace('T', ' ').slice(11, 19) + ' UTC' +
+          ' · Duration ' + durationS + 's';
+      }
+    }, delay);
+  });
+})();
+</script>

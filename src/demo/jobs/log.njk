@@ -1,0 +1,80 @@
+---
+layout: base.njk
+permalink: /demo/jobs/log/
+pageTitle: "Job Log"
+tourSteps:
+  - selector: "#log-box"
+    title: "Full log output"
+    body: "Every line the orchestrator wrote during the run. Syncoid progress, WoL, snapshot verification — all of it. The real thing looks exactly like this."
+    next: "/demo/settings/"
+---
+
+{% set job = jobs[0] %}
+{% set result = job.last_result %}
+
+{% set logLines = [
+  "[hozo] Sending Wake-on-LAN packet to AA:BB:CC:DD:EE:FF",
+  "[hozo] WoL packet sent",
+  "[hozo] Waiting for SSH on backup-box.tailnet.ts.net:22",
+  "[hozo] SSH up after 3.2s",
+  "[hozo] Issuing read kick to /dev/sdb",
+  "[hozo] Drive ready after 6.1s",
+  "[syncoid] Sending incremental rpool/data@hozo_2026-06-19 ... rpool/data@hozo_2026-06-20",
+  "[syncoid] 12% complete · 418 MiB/s · ETA 01:02",
+  "[syncoid] 47% complete · 412 MiB/s · ETA 00:38",
+  "[syncoid] 89% complete · 405 MiB/s · ETA 00:08",
+  "[syncoid] Transfer complete · 6.74 GiB in 412.3s",
+  "[hozo] Listing remote snapshots: 47 found · latest matches local",
+  "[hozo] ntfy.sh/hozo-backups-demo ← ✓ nightly-rpool ok (47 snaps)",
+  "[hozo] ssh root@backup-box.tailnet.ts.net 'shutdown -h now'",
+  "[hozo] Job 'nightly-rpool' completed in 412.3s (47 snapshots on remote)"
+] %}
+
+<div class="flex items-center gap-4 mb-4">
+  <a href="/demo/dashboard/" class="text-slate-400 text-sm hover:text-slate-200">← Back</a>
+  <h1 class="text-xl font-bold">{{ job.name }}</h1>
+  {% if result %}
+    <span class="text-xs px-2 py-1 rounded
+      {{ 'badge-ok' if result.success else 'badge-err' }}">
+      {{ '✓ OK' if result.success else '✗ Failed' }}
+    </span>
+    {% if result.duration_seconds %}
+    <span class="text-xs text-slate-500">{{ result.duration_seconds }}s</span>
+    {% endif %}
+  {% else %}
+    <span class="text-xs px-2 py-1 rounded badge-nil">No run yet</span>
+  {% endif %}
+</div>
+
+{% if result and result.error %}
+<div class="badge-err text-xs rounded px-3 py-2 mb-4 font-mono">{{ result.error }}</div>
+{% endif %}
+
+<div id="log-box" class="card p-4 font-mono text-xs leading-5 overflow-x-auto min-h-32">
+  {% for line in logLines %}
+  <div class="
+    {%- if '[syncoid]' in line %}text-cyan-300
+    {%- elif 'ERROR' in line %}text-red-400
+    {%- elif 'WARNING' in line %}text-yellow-400
+    {%- else %}text-slate-300
+    {%- endif %}">{{ line }}</div>
+  {% endfor %}
+</div>
+
+{% if result %}
+<div class="mt-4 text-xs text-slate-500">
+  Started {{ result.started_at | formatDate("ymdhm") }}
+  {% if result.finished_at %}&middot; Finished {{ result.finished_at | formatDate("ymdhm") }}{% endif %}
+  &middot; {{ result.attempts }} attempt(s)
+  {% if result.snapshots_after_count %}&middot; {{ result.snapshots_after_count }} snapshot(s) on remote{% endif %}
+</div>
+{% else %}
+<div class="mt-3 text-xs text-slate-500">
+  ⏳ Waiting for first run…
+</div>
+{% endif %}
+
+<div class="mt-8 pt-4 border-t border-slate-800 text-xs text-slate-700">
+  Need to pull data back?
+  <a href="/demo/restore/" class="text-red-900 hover:text-red-700 underline">Break-glass restore</a>
+</div>

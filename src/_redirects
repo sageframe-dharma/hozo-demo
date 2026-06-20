@@ -1,0 +1,4 @@
+/demo/jobs/nightly-rpool/log /demo/jobs/log/ 200
+/demo/jobs/nightly-rpool/edit /demo/jobs/edit/ 200
+/demo/jobs/nightly-rpool/restore /demo/restore/ 200
+/demo/jobs/nightly-rpool/restore/log /demo/restore/log/ 200

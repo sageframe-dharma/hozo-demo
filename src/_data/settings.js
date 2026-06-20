@@ -1,0 +1,16 @@
+module.exports = {
+  ssh_timeout: 120,
+  ssh_user: "root",
+  rp_id: "hozo.tailnet.ts.net",
+  ntfy_topic: "hozo-backups-demo",
+  pushover_token: "",
+  pushover_user: "",
+  smtp_host: "",
+  smtp_port: 587,
+  smtp_user: "",
+  smtp_password: "",
+  smtp_from_addr: "",
+  smtp_to_addr: "",
+  smtp_use_tls: true,
+  scheduler_running: true,
+};

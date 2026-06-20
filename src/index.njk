@@ -1,0 +1,114 @@
+---
+layout: marketing.njk
+pageTitle: false
+pageDescription: "Hōzō — wake-on-demand ZFS backup orchestrator. Try the live demo, no install needed."
+---
+
+{# ── Hero ────────────────────────────────────────────────────────────── #}
+<section class="text-center py-16 sm:py-24">
+  <h1 class="text-5xl sm:text-7xl font-bold tracking-tight text-slate-100 mb-2">
+    Hōzō. <span class="text-slate-400">宝蔵</span>
+  </h1>
+  <p class="text-xl sm:text-2xl text-blue-400 font-semibold mt-4 mb-6">
+    Wake-on-demand ZFS backup orchestrator
+  </p>
+  <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed">
+    Hōzō wakes a sleeping backup server, replicates ZFS snapshots over SSH, verifies
+    the result, then shuts the server back down. Built for low-power homelab backup
+    nodes — Intel NUC, Beelink, Raspberry Pi — silent, off when not in use.
+  </p>
+</section>
+
+{# ── Primary CTAs ─────────────────────────────────────────────────────── #}
+<section class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+  <a href="/demo/"
+     class="btn-primary inline-block text-white font-semibold text-lg px-8 py-4 rounded-lg text-center transition-colors">
+    Try the live demo →
+  </a>
+  <a href="/about/"
+     class="inline-block text-slate-200 font-semibold text-lg px-8 py-4 rounded-lg text-center border border-slate-500 hover:border-slate-300 hover:text-white transition-colors">
+    Read the story (built in 3 hours) →
+  </a>
+</section>
+
+{# ── Three-up feature row ─────────────────────────────────────────────── #}
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+  <div class="card p-5">
+    <div class="text-3xl mb-3">🌙</div>
+    <h3 class="text-lg font-bold text-slate-100 mb-2">Wake. Sync. Sleep.</h3>
+    <p class="text-slate-300 text-sm leading-relaxed">
+      Wake-on-LAN, wait for SSH, optionally spin up a USB drive, run syncoid,
+      verify, then shut the box down. Fully automated, zero manual steps.
+    </p>
+  </div>
+  <div class="card p-5">
+    <div class="text-3xl mb-3">🛡</div>
+    <h3 class="text-lg font-bold text-slate-100 mb-2">Tested in production.</h3>
+    <p class="text-slate-300 text-sm leading-relaxed">
+      278 tests, 99% coverage, zero lint errors — not a prototype.
+      Built to the same quality bar as any production system.
+    </p>
+  </div>
+  <div class="card p-5">
+    <div class="text-3xl mb-3">🔐</div>
+    <h3 class="text-lg font-bold text-slate-100 mb-2">Passkeys only.</h3>
+    <p class="text-slate-300 text-sm leading-relaxed">
+      WebAuthn-only auth. No passwords to leak, no shared secrets, no bearer
+      tokens. Your device is your key.
+    </p>
+  </div>
+</section>
+
+{# ── Architecture diagram ─────────────────────────────────────────────── #}
+<section class="mb-16">
+  <h2 class="text-xl font-bold text-slate-200 mb-4">How it works</h2>
+  <pre class="card p-4 text-xs overflow-x-auto text-slate-300 leading-relaxed">
+ ┌─────────────────────────────────┐
+ │        Hōzō Controller          │  (your always-on machine)
+ │                                 │
+ │  Scheduler ──► Job runner       │
+ │                    │            │
+ │          Wake-on-LAN packet     │
+ │                    │            │
+ └────────────────────┼────────────┘
+                      │ SSH / WoL
+                      ▼
+ ┌─────────────────────────────────┐
+ │       Remote NUC / Beelink      │  (sleeps until backup time)
+ │                                 │
+ │  Wakes  ──►  USB drive spins up │
+ │              syncoid runs       │
+ │              verify snapshot    │
+ │              shutdown           │
+ └─────────────────────────────────┘
+                      │
+                      ▼
+             ZFS pool on USB drive
+             (offsite-ready replica)
+  </pre>
+</section>
+
+{# ── Install / Get it ─────────────────────────────────────────────────── #}
+<section class="card p-6 mb-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-lg font-bold text-slate-100 mb-3">Run it yourself</h3>
+      <pre class="bg-slate-900 rounded-lg px-4 py-3 text-sm text-slate-300 overflow-x-auto">pipx install hozo</pre>
+      <p class="text-slate-400 text-sm mt-3">
+        Requires Python 3.11+. ZFS and syncoid must be available on the controller
+        and backup target.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h3 class="text-lg font-bold text-slate-100 mb-1">Read the source</h3>
+      <a href="{{ site.repo }}" target="_blank" rel="noopener"
+         class="text-blue-400 hover:text-blue-300 underline">
+        github.com/sageframe-no-kaji/hozo-sentinel ↗
+      </a>
+      <a href="{{ site.hoSystem }}" target="_blank" rel="noopener"
+         class="text-slate-400 hover:text-slate-200 underline text-sm">
+        Built with the Ho System ↗
+      </a>
+    </div>
+  </div>
+</section>

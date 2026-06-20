@@ -1,0 +1,42 @@
+---
+layout: base.njk
+pageTitle: Login
+permalink: /demo/auth/login/
+---
+
+<div class="max-w-sm mx-auto mt-16">
+  <div class="card p-8 text-center">
+    <div class="text-5xl mb-4">🏯</div>
+    <h1 class="text-2xl font-bold mb-2">Hōzō</h1>
+    <p class="text-slate-400 text-sm mb-8">ZFS Backup Orchestrator</p>
+
+    <p class="text-slate-400 text-sm mb-6">
+      Authenticate with your registered device (fingerprint, security key, or platform authenticator).
+    </p>
+
+    <button id="btn-login"
+            class="btn-primary w-full py-3 rounded text-white font-semibold text-sm cursor-pointer">
+      🔐 Authenticate
+    </button>
+
+    <div id="login-error" class="text-red-400 text-sm mt-4 hidden"></div>
+
+    <p class="text-slate-500 text-xs mt-6">
+      Hōzō uses passkeys — no passwords.
+      <a href="/demo/auth/devices/" class="text-blue-400 underline">Why? →</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('btn-login').addEventListener('click', () => {
+    const btn = document.getElementById('btn-login');
+    btn.disabled = true;
+    btn.textContent = '⏳ Touch your security key…';
+    setTimeout(() => {
+      btn.textContent = '✓ Authenticated';
+      btn.classList.add('badge-ok');
+      setTimeout(() => { window.location.href = '/demo/dashboard/'; }, 600);
+    }, 1400);
+  });
+</script>

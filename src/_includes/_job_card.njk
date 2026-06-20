@@ -1,0 +1,93 @@
+{# _job_card.njk — single source of truth for a job card.
+   Included from dashboard.njk for each job in the jobs array.
+   Requires: job object from _data/jobs.js #}
+<div class="card p-5 mb-4" data-card="{{ job.name }}">
+  <div class="flex items-start justify-between mb-3">
+    <div>
+      <h2 class="text-lg font-semibold">{{ job.name }}</h2>
+      {% if job.description %}<p class="text-slate-400 text-sm mt-0.5">{{ job.description }}</p>{% endif %}
+    </div>
+    {# Status badge — doubles as log affordance when a run has completed #}
+    {% if job.last_result %}
+      {% if job.last_result.success %}
+      <a href="/demo/jobs/log/"
+         data-status-badge
+         class="text-xs px-2 py-1 rounded no-underline transition-colors badge-ok hover:brightness-110"
+         title="View log for {{ job.name }}">
+        ✓ OK
+      </a>
+      {% else %}
+      <a href="/demo/jobs/log/"
+         data-status-badge
+         class="text-xs px-2 py-1 rounded no-underline transition-colors badge-err hover:brightness-110"
+         title="View log for {{ job.name }}">
+        ✗ Failed — view log
+      </a>
+      {% endif %}
+    {% else %}
+    <span data-status-badge class="text-xs px-2 py-1 rounded badge-nil">— No runs yet</span>
+    {% endif %}
+  </div>
+
+  {# Info grid — 2 cols on md+, stacked on mobile #}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-300 mb-4">
+    <div><span class="text-slate-500">Source:</span> {{ job.source }}</div>
+    <div><span class="text-slate-500">Target:</span> {{ job.target_host }}:{{ job.target_dataset }}</div>
+    {% if job.last_result %}
+    <div><span class="text-slate-500">Last run:</span> {{ job.last_result.started_at | formatDate("ymdhm") }}</div>
+    <div><span class="text-slate-500">Duration:</span>
+      {% if job.last_result.duration_seconds %}{{ job.last_result.duration_seconds }}s{% else %}—{% endif %}
+    </div>
+    <div><span class="text-slate-500">Snapshots:</span> {{ job.last_result.snapshots_after_count }}</div>
+    {% if job.last_result.error %}
+    <div class="col-span-2 text-red-400 text-xs mt-1">{{ job.last_result.error }}</div>
+    {% endif %}
+    {% endif %}
+  </div>
+
+  {# Action row — Run Backup primary; Wake and Shutdown operational secondaries;
+     Edit and Delete tucked behind the ⋯ kebab menu #}
+  <div class="flex flex-wrap items-center gap-2">
+    <button data-run
+            class="btn-primary text-sm px-4 py-2 rounded cursor-pointer text-white font-semibold"
+            onclick="hozoRunScripted('{{ job.name }}', this.closest('.card'))">
+      ▶ Run Backup
+    </button>
+
+    <button class="text-xs px-3 py-2 rounded cursor-pointer text-amber-300 border border-amber-700/60 hover:bg-amber-900/30 bg-transparent"
+            onclick="hozoWake('{{ job.name }}')">
+      ⚡ Wake
+    </button>
+
+    <button class="text-xs px-3 py-2 rounded cursor-pointer text-red-300 border border-red-800/60 hover:bg-red-900/30 bg-transparent"
+            onclick="hozoShutdown('{{ job.name }}')">
+      ⏻ Shutdown
+    </button>
+
+    <details class="job-menu relative ml-auto">
+      <summary class="cursor-pointer list-none px-2 py-2 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 select-none"
+               aria-label="More actions for {{ job.name }}">
+        ⋯
+      </summary>
+      <div class="absolute right-0 top-full mt-1 z-10 min-w-[160px] py-1
+                  bg-slate-800 border border-slate-700 rounded shadow-lg">
+        <a href="/demo/jobs/edit/"
+           class="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-700 no-underline">
+          ✏ Edit job
+        </a>
+        <div class="border-t border-slate-700 my-1"></div>
+        <form method="post" action="#">
+          <button type="submit"
+                  class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-red-900/30 cursor-pointer bg-transparent border-0"
+                  onclick="hozoDelete('{{ job.name }}'); return false;">
+            🗑 Delete job
+          </button>
+        </form>
+      </div>
+    </details>
+  </div>
+
+  {# Inline log — hidden until hozoRunScripted reveals it #}
+  <div data-inline-log
+       class="hidden mt-3 p-3 bg-slate-900 rounded font-mono text-xs leading-5 max-h-48 overflow-y-auto"></div>
+</div>

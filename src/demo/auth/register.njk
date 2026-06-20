@@ -1,0 +1,47 @@
+---
+layout: base.njk
+pageTitle: Register Device
+permalink: /demo/auth/register/
+---
+
+<div class="max-w-sm mx-auto mt-16">
+  <div class="card p-8 text-center">
+    <div class="text-4xl mb-4">🔑</div>
+    <h1 class="text-xl font-bold mb-2">Register New Device</h1>
+
+    <p class="text-slate-400 text-sm mb-6">
+      Add a new passkey or security key. You can register multiple devices
+      (e.g. laptop + YubiKey backup).
+    </p>
+
+    <div class="text-left mb-4">
+      <label class="text-xs text-slate-400 block mb-1">Device name (optional)</label>
+      <input id="device-name" type="text" placeholder="e.g. MacBook Touch ID"
+             class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-400"/>
+    </div>
+
+    <button id="btn-register"
+            class="btn-primary w-full py-3 rounded text-white font-semibold text-sm cursor-pointer">
+      🔐 Register This Device
+    </button>
+
+    <div id="reg-error" class="text-red-400 text-sm mt-4 hidden"></div>
+    <div id="reg-ok" class="badge-ok text-sm rounded p-2 mt-4 hidden">
+      ✓ Registered! Redirecting…
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('btn-register').addEventListener('click', () => {
+    const btn = document.getElementById('btn-register');
+    const ok = document.getElementById('reg-ok');
+    btn.disabled = true;
+    btn.textContent = '⏳ Touch your security key…';
+    setTimeout(() => {
+      btn.textContent = '✓ Registered';
+      ok.classList.remove('hidden');
+      setTimeout(() => { window.location.href = '/demo/auth/devices/'; }, 1000);
+    }, 1500);
+  });
+</script>

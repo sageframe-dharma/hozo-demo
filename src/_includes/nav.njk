@@ -1,0 +1,19 @@
+<nav class="border-b border-slate-700 px-4 sm:px-6 py-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+  <a href="/" class="flex items-center gap-2 no-underline">
+    <span class="text-2xl">🏯</span>
+    <span class="text-xl font-bold tracking-wide text-slate-100">Hōzō. 宝蔵</span>
+  </a>
+  <span class="text-slate-600 text-xs hidden md:inline">ZFS Backup Orchestrator · Live Demo</span>
+
+  <div class="ml-auto flex flex-wrap items-center gap-3 text-xs">
+    {% if showSchedulerBadge %}
+      <span class="px-2 py-1 rounded {% if settings.scheduler_running %}badge-ok{% else %}badge-nil{% endif %}">
+        {% if settings.scheduler_running %}● Scheduler running{% else %}○ No scheduler{% endif %}
+      </span>
+    {% endif %}
+    <a href="/demo/" class="text-slate-400 hover:text-slate-200">Demo</a>
+    <a href="/cli/" class="text-slate-400 hover:text-slate-200">CLI</a>
+    <a href="/about/" class="text-slate-400 hover:text-slate-200">About</a>
+    <a href="{{ site.repo }}" target="_blank" rel="noopener" class="text-slate-400 hover:text-slate-200">GitHub ↗</a>
+  </div>
+</nav>

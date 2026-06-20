@@ -1,0 +1,99 @@
+---
+layout: base.njk
+permalink: /demo/
+pageTitle: "Live Demo"
+showSchedulerBadge: true
+tourSteps:
+  - selector: "[data-start-tour]"
+    title: "Welcome to the Hōzō demo"
+    body: "Click <b>Start the guided tour</b> any time, or wander on your own. Everything here runs on fake data in your browser."
+  - selector: "a[href='/demo/dashboard/']"
+    title: "The Dashboard is the heart of it"
+    body: "Backup jobs, one card each. Run them, watch the log tail, jump to settings — start here."
+    next: "/demo/dashboard/"
+---
+
+{# ── Heading + lede ───────────────────────────────────────────────────── #}
+<h1 class="text-3xl font-bold text-slate-100 mb-3">Live Demo</h1>
+<p class="text-slate-300 leading-relaxed mb-8 max-w-2xl">
+  This is the real Hōzō interface, running on sample data in your browser.
+  Nothing leaves this page — no SSH, no ZFS, no backend.
+  Click anywhere, break anything.
+</p>
+
+{# ── Start tour button ────────────────────────────────────────────────── #}
+<div class="mb-10">
+  <button
+    data-start-tour
+    class="btn-primary text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors cursor-pointer border-0">
+    ▶ Start the guided tour
+  </button>
+</div>
+
+{# ── "Or jump straight in" grid ───────────────────────────────────────── #}
+<h2 class="text-lg font-semibold text-slate-400 mb-4 uppercase tracking-wider text-xs">
+  Or jump straight in
+</h2>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+
+  <a href="/demo/dashboard/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">📊</div>
+    <div class="font-bold text-slate-100 mb-1">Dashboard</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      Job cards. Run a backup and watch it animate through every state.
+    </div>
+  </a>
+
+  <a href="/demo/jobs/new/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">✏</div>
+    <div class="font-bold text-slate-100 mb-1">Create a job</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      Configure source, target, schedule, notifications.
+    </div>
+  </a>
+
+  <a href="/demo/jobs/log/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">📜</div>
+    <div class="font-bold text-slate-100 mb-1">Live log</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      Watch syncoid run in real time (well, faked time).
+    </div>
+  </a>
+
+  <a href="/demo/settings/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">⚙</div>
+    <div class="font-bold text-slate-100 mb-1">Settings</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      SSH defaults, notification channels, WebAuthn RP ID.
+    </div>
+  </a>
+
+  <a href="/demo/auth/devices/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">🔐</div>
+    <div class="font-bold text-slate-100 mb-1">Devices (WebAuthn)</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      Passkeys-only auth. No passwords.
+    </div>
+  </a>
+
+  <a href="/demo/restore/" class="card p-4 block no-underline hover:border-slate-400 transition-colors">
+    <div class="text-2xl mb-2">⚠</div>
+    <div class="font-bold text-slate-100 mb-1">Break-glass restore</div>
+    <div class="text-slate-400 text-sm leading-snug">
+      Pull data back from the offsite. Type-to-confirm.
+    </div>
+  </a>
+
+</div>
+
+{# ── CLI callout ──────────────────────────────────────────────────────── #}
+<div class="card p-5 flex items-start gap-4">
+  <span class="text-2xl mt-0.5">💻</span>
+  <p class="text-slate-300 text-sm leading-relaxed">
+    Prefer the command line? See the
+    <a href="/cli/" class="text-blue-400 hover:text-blue-300 underline">
+      animated CLI walkthrough →
+    </a>
+  </p>
+</div>

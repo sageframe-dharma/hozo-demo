@@ -1,0 +1,222 @@
+/* Hōzō shared styles — extracted from src/hozo/api/templates/base.html
+   so they apply to every demo page and the marketing pages too. */
+
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+}
+
+.badge-ok  { background: #166534; color: #bbf7d0; }
+.badge-err { background: #7f1d1d; color: #fecaca; }
+.badge-nil { background: #374151; color: #9ca3af; }
+.badge-running { background: #1e3a8a; color: #bfdbfe; }
+
+.btn-primary       { background: #3b82f6; }
+.btn-primary:hover { background: #2563eb; }
+.btn-warn          { background: #f59e0b; }
+.btn-warn:hover    { background: #d97706; }
+.btn-danger        { background: #ef4444; }
+.btn-danger:hover  { background: #dc2626; }
+
+/* Hide native disclosure triangle on kebab menus */
+details.job-menu > summary::-webkit-details-marker { display: none; }
+details.job-menu > summary { list-style: none; }
+
+/* ── Walkthrough coach-mark system ───────────────────────────────────── */
+
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.tour-overlay.active {
+  pointer-events: auto;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(1px);
+}
+
+.tour-spotlight {
+  position: absolute;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.6),
+    0 0 0 9999px rgba(15, 23, 42, 0.55);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.tour-popover {
+  position: absolute;
+  background: #1e293b;
+  border: 1px solid #3b82f6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-width: 320px;
+  z-index: 10000;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.tour-popover h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.tour-popover p {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin-bottom: 0.75rem;
+}
+
+.tour-popover .tour-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.tour-popover .tour-step {
+  color: #64748b;
+}
+
+.tour-popover .tour-skip {
+  color: #64748b;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.tour-popover .tour-skip:hover { color: #cbd5e1; }
+
+.tour-popover .tour-next {
+  background: #3b82f6;
+  color: white;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tour-popover .tour-next:hover { background: #2563eb; }
+
+/* "Click here" pointer next to actionable elements when demo is in
+   walk-through mode. */
+.demo-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  color: #60a5fa;
+  margin-left: 0.5rem;
+  animation: hint-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  50%      { opacity: 1;    transform: translateX(3px); }
+}
+
+/* ── Toast ───────────────────────────────────────────────────────────── */
+
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  max-width: 20rem;
+  z-index: 9000;
+}
+
+#toast .toast-msg {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: toast-in 0.18s ease-out;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Terminal (CLI demo page) ────────────────────────────────────────── */
+
+.terminal {
+  background: #0a0f1c;
+  border: 1px solid #1f2a44;
+  border-radius: 0.5rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.825rem;
+  line-height: 1.45;
+  color: #cbd5e1;
+  overflow: hidden;
+}
+
+.terminal-head {
+  background: #1f2937;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #1f2a44;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-head .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.terminal-head .dot.r { background: #ef4444; }
+.terminal-head .dot.y { background: #f59e0b; }
+.terminal-head .dot.g { background: #22c55e; }
+
+.terminal-body {
+  padding: 1rem;
+  min-height: 18rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal-body .prompt { color: #60a5fa; }
+.terminal-body .ok     { color: #4ade80; }
+.terminal-body .warn   { color: #fbbf24; }
+.terminal-body .err    { color: #f87171; }
+.terminal-body .dim    { color: #64748b; }
+.terminal-body .accent { color: #67e8f9; }
+
+.cursor {
+  display: inline-block;
+  width: 0.55ch;
+  background: #cbd5e1;
+  animation: cursor-blink 1s steps(2) infinite;
+}
+
+@keyframes cursor-blink {
+  50% { background: transparent; }
+}
+
+/* ── Responsive niceties ─────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .grid-mobile-stack { grid-template-columns: 1fr !important; }
+  .tour-popover { max-width: calc(100vw - 2rem); }
+}

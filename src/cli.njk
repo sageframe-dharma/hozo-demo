@@ -1,0 +1,96 @@
+---
+layout: base.njk
+permalink: /cli/
+pageTitle: "Command Line"
+tourSteps:
+  - selector: ".terminal"
+    title: "Same orchestrator, different surface"
+    body: "Click any scenario on the right to watch the CLI in action. When you're done — that's the whole tour. <br><br>Real Hōzō ships with this, the web UI, ntfy/Pushover/SMTP notifications, WebAuthn auth, and a break-glass restore. <a class='underline text-blue-300' href='/about/'>How it got built →</a>"
+---
+
+<div class="flex flex-col md:flex-row gap-6 items-start">
+
+  {# ── Left: terminal ──────────────────────────────────────────────────── #}
+  <div class="flex-1 min-w-0">
+    <div class="terminal">
+      <div class="terminal-head">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <span class="ml-2">~/hozo$</span>
+      </div>
+      <div class="terminal-body" id="term-body" aria-live="polite" aria-label="Terminal output"></div>
+    </div>
+
+    {# ── Controls ──────────────────────────────────────────────────────── #}
+    <div class="flex flex-wrap items-center gap-3 mt-4">
+      <button
+        id="btn-next"
+        class="px-4 py-2 rounded text-sm font-semibold btn-primary text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label="Advance to next step"
+      >▸ Next</button>
+
+      <button
+        id="btn-replay"
+        class="px-4 py-2 rounded text-sm font-semibold bg-slate-700 hover:bg-slate-600 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+        aria-label="Replay current scenario from start"
+      >↻ Replay</button>
+
+      <button
+        id="btn-skip"
+        class="px-4 py-2 rounded text-sm font-semibold bg-slate-700 hover:bg-slate-600 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+        aria-label="Skip animation and show all output immediately"
+      >⏭ Skip animation</button>
+    </div>
+
+    {# ── Explainer ─────────────────────────────────────────────────────── #}
+    <p class="mt-5 text-sm text-slate-400 leading-relaxed">
+      The <code class="text-slate-200 bg-slate-800 px-1 rounded">hozo</code> CLI
+      mirrors the web UI 1:1. Anything you can do in the dashboard, you can
+      script. The web UI is a thin layer over the same orchestration.
+    </p>
+  </div>
+
+  {# ── Right: scenario sidebar ─────────────────────────────────────────── #}
+  <div class="md:w-72 w-full">
+    <div class="card p-4">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">Scenarios</h2>
+      <div class="flex flex-col gap-2">
+
+        <button
+          data-scenario="help"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ Hello &amp; help<br><span class="text-xs text-slate-500 font-sans">hozo --help</span></button>
+
+        <button
+          data-scenario="list"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ List jobs<br><span class="text-xs text-slate-500 font-sans">hozo jobs list</span></button>
+
+        <button
+          data-scenario="run"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ Run a backup<br><span class="text-xs text-slate-500 font-sans">hozo jobs run nightly-rpool</span></button>
+
+        <button
+          data-scenario="status"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ Check remote status<br><span class="text-xs text-slate-500 font-sans">hozo status --job nightly-rpool</span></button>
+
+        <button
+          data-scenario="wake"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ Send WoL<br><span class="text-xs text-slate-500 font-sans">hozo wake nightly-rpool</span></button>
+
+        <button
+          data-scenario="shutdown"
+          class="text-left px-3 py-2 rounded text-sm font-mono bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >▸ Shutdown remote<br><span class="text-xs text-slate-500 font-sans">hozo shutdown nightly-rpool</span></button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/assets/js/terminal.js"></script>

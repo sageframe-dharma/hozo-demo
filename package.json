@@ -1,0 +1,14 @@
+{
+  "name": "hozo-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive demo and walkthrough for Hōzō",
+  "scripts": {
+    "start": "eleventy --serve --quiet",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

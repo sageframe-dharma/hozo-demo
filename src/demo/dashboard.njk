@@ -1,0 +1,36 @@
+---
+layout: base.njk
+permalink: /demo/dashboard/
+pageTitle: "Dashboard"
+showSchedulerBadge: true
+tourSteps:
+  - selector: "#new-job-btn"
+    title: "Jobs live here"
+    body: "Each card is a backup job. Tap <b>+ New Job</b> to configure one — we'll start by running the first one."
+  - selector: "[data-card='nightly-rpool'] button[data-run]"
+    title: "Run a backup"
+    body: "Click <b>▶ Run Backup</b>. Hōzō will wake the remote box, run syncoid, verify the snapshots, and shut the box down — all faked here, but the states are the real ones."
+  - selector: "[data-card='nightly-rpool'] [data-status-badge]"
+    title: "Watch the status"
+    body: "This badge cycles through every real state. When it lands on <b>✓ OK</b>, the run is done."
+  - selector: "[data-card='weekly-photos'] [data-status-badge]"
+    title: "Failures are loud"
+    body: "Click the red <b>Failed</b> badge to read the log."
+    next: "/demo/jobs/log/"
+---
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold">Backup Jobs</h1>
+  <a id="new-job-btn" href="/demo/jobs/new/" class="btn-primary text-xs px-4 py-2 rounded text-white">+ New Job</a>
+</div>
+
+<div id="job-cards">
+  {% for job in jobs %}
+    {% include "_job_card.njk" %}
+  {% else %}
+  <div class="card p-8 text-center text-slate-500">
+    <p>No jobs configured.</p>
+    <p class="text-sm mt-2">Edit your <code>config.yaml</code> and restart Hōzō.</p>
+  </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,138 @@
+---
+layout: marketing.njk
+permalink: /about/
+pageTitle: "About — Built in Three Hours"
+pageDescription: "Hōzō was built in a single three-hour morning session using the Ho System. The AI wrote the code. The author built the system."
+---
+
+<article class="max-w-2xl mx-auto">
+
+  {# ── Headline ────────────────────────────────────────────────────────── #}
+  <h1 class="text-4xl sm:text-5xl font-bold text-slate-100 mb-6">
+    Built in three hours.
+  </h1>
+
+  {# ── Lede ────────────────────────────────────────────────────────────── #}
+  <p class="text-slate-300 text-lg leading-relaxed mb-8">
+    Andrew built Hōzō in a single early-morning session before the kids were up.
+    278 tests. 99% coverage. Zero lint errors. It was not a prototype. It was
+    production software — deployed and running.
+  </p>
+
+  {# ── Pull quote ──────────────────────────────────────────────────────── #}
+  <blockquote class="text-xl italic text-slate-100 border-l-4 border-blue-400 pl-4 my-8">
+    "The AI wrote the code. I built the system. Those are different things."
+  </blockquote>
+
+  {# ── Section: What "building the system" meant ────────────────────────── #}
+  <h2 class="text-2xl font-bold text-slate-100 mt-10 mb-3">
+    What "building the system" meant
+  </h2>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    Before any code existed, the architecture did. The scope was bounded in
+    writing: what Hōzō would do, what it would not do, what its failure modes
+    were, what the data model looked like, what the test strategy would be.
+    The AI received a specification. It did not invent one.
+  </p>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    Building the system meant watching the AI's execution in real time — not
+    glancing at a diff at the end, but attending to each file as it was
+    written. The first agent pass produced code that drifted from the spec in
+    two places. Both were caught during the session. Neither made it to commit.
+    If the practitioner had not been watching, both would have shipped.
+  </p>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    The verification discipline was the other half of the work. Every commit
+    ran ruff, mypy, and pytest before it landed. Coverage stayed above 99%
+    because failing to write a test for a new code path meant the commit was
+    blocked. The gate was structural, not aspirational.
+  </p>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    What looks like a three-hour session was really the visible tip of a much
+    longer process. The session was the implementation. The system design,
+    the architectural decisions, the verification standards — those came first
+    and took longer. The three hours were fast because everything upstream of
+    them had been done carefully.
+  </p>
+
+  {# ── Section: Why this was possible ──────────────────────────────────── #}
+  <h2 class="text-2xl font-bold text-slate-100 mt-10 mb-3">
+    Why this was possible
+  </h2>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    Eleven weeks of deliberate Python practice preceded the session. Not
+    tutorial practice — project practice. Real systems with real specs,
+    real tests, real deployments. The months before that were architecture
+    and systems thinking accumulated over years of design work at a different
+    scale. The session drew on all of it.
+  </p>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    The working principle underneath the session was simple:
+    <em class="italic text-slate-100">"Anything I can specify, I can build."</em>
+    The limit on what gets built is the practitioner's ability to specify it
+    clearly — not their ability to type Python. That shifts everything. The
+    practice becomes: get better at specification.
+  </p>
+
+  {# ── Section: The Ho System ───────────────────────────────────────────── #}
+  <h2 class="text-2xl font-bold text-slate-100 mt-10 mb-3">
+    The Ho System
+  </h2>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    The Ho System is a methodology for structured human-AI collaborative
+    development. It is modeled on the martial-arts arc of shu-ha-ri: follow
+    form precisely, then break form deliberately, then transcend form
+    entirely. The practitioner internalizes discipline through repetition
+    until the discipline becomes invisible.
+  </p>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    The key structural ideas: sessions are bounded by scope documents (called
+    "hos") so the agent and practitioner share the same model of what the
+    session will do. Verification is non-negotiable — lint, types, tests, in
+    that order, before every commit. The repository itself encodes the
+    quality practices, so the agent conforms to the standard it finds in the
+    environment rather than to whatever its defaults would otherwise produce.
+    Documentation is not overhead; it is the bootstrap that makes the next
+    session possible.
+    <a href="{{ site.hoSystem }}" target="_blank" rel="noopener"
+       class="text-blue-400 hover:text-blue-300 underline">
+      Read more about the Ho System ↗
+    </a>
+  </p>
+
+  {# ── Section: Speed without stability ─────────────────────────────────── #}
+  <h2 class="text-2xl font-bold text-slate-100 mt-10 mb-3">
+    Speed without stability is just accelerated chaos
+  </h2>
+
+  <p class="text-slate-300 leading-relaxed mb-4">
+    The DORA research put it plainly: elite teams deploy frequently
+    <em class="italic">and</em> have low change failure rates. Speed and
+    stability are not a tradeoff; they are the same discipline at different
+    time scales. The verification stack that kept Hōzō at 99% coverage in
+    three hours is the same discipline that keeps production systems from
+    failing on Friday afternoons. Going fast without it is not speed. It is
+    accumulated debt moving quickly.
+  </p>
+
+  {# ── Closing CTA ─────────────────────────────────────────────────────── #}
+  <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row gap-4">
+    <a href="{{ site.substack }}" target="_blank" rel="noopener"
+       class="btn-primary inline-block text-white font-semibold px-6 py-3 rounded-lg text-center transition-colors">
+      Read the full Substack post →
+    </a>
+    <a href="/demo/"
+       class="inline-block text-slate-200 font-semibold px-6 py-3 rounded-lg text-center border border-slate-500 hover:border-slate-300 hover:text-white transition-colors">
+      Or try the demo →
+    </a>
+  </div>
+
+</article>

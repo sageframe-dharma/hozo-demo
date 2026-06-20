@@ -1,0 +1,15 @@
+{% include "head.njk" %}
+<body class="min-h-screen font-mono">
+  {% include "nav.njk" %}
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    {{ content | safe }}
+  </main>
+  <div id="toast"></div>
+  {% include "footer.njk" %}
+  <script src="/assets/js/demo.js"></script>
+  <script src="/assets/js/tour.js"></script>
+  {% if tourSteps %}
+  <script type="application/json" id="tour-steps">{{ tourSteps | dump | safe }}</script>
+  {% endif %}
+</body>
+</html>
