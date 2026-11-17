@@ -1,0 +1,61 @@
+{
+  "keisaku": 1,
+  "works": [
+    {
+      "id": "hozo-demo",
+      "name": "hozo-demo",
+      "tags": [
+        "javascript"
+      ],
+      "media": [
+        "software"
+      ],
+      "repo": "https://github.com/sageframe-dharma/hozo-demo.git",
+      "deployment": [
+        {
+          "label": "Hōzō",
+          "url": "https://github.com/sageframe-no-kaji/hozo-sentinel"
+        },
+        {
+          "label": "hozo.atmarcus.net",
+          "url": "https://hozo.atmarcus.net"
+        }
+      ],
+      "tech_stack": "JavaScript",
+      "created": "2026-06-20",
+      "last_updated": "2026-06-20",
+      "_keisaku": {
+        "generated_at": "2026-11-16T10:49:46",
+        "generator_version": "1",
+        "sources": {
+          "readme": "README.md",
+          "manifest": "package.json"
+        },
+        "derived_defaults": {
+          "id": "hozo-demo",
+          "name": "hozo-demo",
+          "media": [
+            "software"
+          ],
+          "created": "2026-06-20",
+          "tags": [
+            "javascript"
+          ],
+          "deployment": [
+            {
+              "label": "Hōzō",
+              "url": "https://github.com/sageframe-no-kaji/hozo-sentinel"
+            },
+            {
+              "label": "hozo.atmarcus.net",
+              "url": "https://hozo.atmarcus.net"
+            }
+          ]
+        },
+        "contract_issues": [
+          "no-contract-source"
+        ]
+      }
+    }
+  ]
+}
